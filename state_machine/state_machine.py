@@ -48,13 +48,13 @@ class Observation:
     safety: Safety | None = None
     docking: Docking | None = None
 
-def step(state: State, observation: Observation) -> State:
+def step(state: State, observation: Observation) -> tuple[State, str | None]:
     # Placeholder logic for state transition
     if state == State.IDLE:
         if observation.bird and observation.bird.detected:
-            return State.TRACKING
+            return State.TRACKING, "Bird detected"
     elif state == State.TRACKING:
         if not observation.bird or not observation.bird.detected:
-            return State.IDLE
+            return State.IDLE, "Bird not detected"
     # Add more state transition logic as needed
-    return state
+    return state, None
